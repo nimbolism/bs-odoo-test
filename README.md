@@ -1,24 +1,4 @@
-[![Doodba deployment](https://img.shields.io/badge/deployment-doodba-informational)](https://github.com/Tecnativa/doodba)
-[![Last template update](https://img.shields.io/badge/last%20template%20update-v8.1.0-informational)](https://github.com/Tecnativa/doodba-copier-template/tree/v8.1.0)
-[![Odoo](https://img.shields.io/badge/odoo-v17.0-a3478a)](https://github.com/odoo/odoo/tree/17.0)
-[![BSL-1.0 license](https://img.shields.io/badge/license-BSL--1.0-success})](LICENSE)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
-
-# doodba-test-odoo - a Doodba deployment
-
-This project is a Doodba scaffolding. Check upstream docs on the matter:
-
-- [General Doodba docs](https://github.com/Tecnativa/doodba).
-- [Doodba copier template docs](https://github.com/Tecnativa/doodba-copier-template)
-- [Doodba QA docs](https://github.com/Tecnativa/doodba-qa)
-
-# Credits
-
-This project is maintained by: Doodba-testers
-
-
-
-### Installing Python and Invoke on Ubuntu 24.04
+# Installing Python and Invoke on Ubuntu 24.04
 
 ## 1. Install Python and Pip
 First, update the package list and install Python 3 and pip:
@@ -31,27 +11,27 @@ sudo apt install python3-pip
 ```
 
 
-### 2. Initialize a Virtual Environment
-# 2.1 Install venv
+## 2. Initialize a Virtual Environment
+### 2.1 Install venv
 Install the venv module:
 ```
 sudo apt install python3.12-venv
 ```
 
-## 2.2 Create and Activate the Virtual Environment
+### 2.2 Create and Activate the Virtual Environment
 Create a virtual environment named .odoo and activate it:
 ```
 python3 -m venv .odoo
 source .odoo/bin/activate
 ```
 
-## 2.3 Install Pipx and Other Tools
+### 2.3 Install Pipx and Other Tools
 With the virtual environment activated, install ``` pipx ```:
 ```
 python3 -m pip install pipx
 ```
 
-## 2.4 Install Tools Using Pipx
+### 2.4 Install Tools Using Pipx
 Install the necessary tools:
 ```
 pipx install copier
@@ -60,8 +40,8 @@ pipx install pre-commit
 pipx ensurepath
 ```
 
-### 3. Install Docker Engine
-## 3.1 Add Docker's Official GPG Key
+## 3. Install Docker Engine
+### 3.1 Add Docker's Official GPG Key
 Run the following commands to prepare for Docker installation:
 ```
 sudo apt-get update
@@ -71,7 +51,7 @@ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyring
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
 
-## 3.2 Add the Docker Repository
+### 3.2 Add the Docker Repository
 Add the Docker repository to Apt sources:
 ```
 echo \
@@ -81,25 +61,25 @@ echo \
 sudo apt-get update
 ```
 
-## 3.3 Install Docker Engine
+### 3.3 Install Docker Engine
 Now, install the Docker packages:
 ```
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-## 3.4 Verify Docker Installation
+### 3.4 Verify Docker Installation
 To check if Docker is installed correctly, run:
 ```
 sudo docker run hello-world
 ```
 
-### 4. Check Git Installation
+## 4. Check Git Installation
 Verify that Git is installed:
 ```
 git -v
 ```
 
-### 5. Create Directories and Clone Doodba Copier Template
+## 5. Create Directories and Clone Doodba Copier Template
 Create a project directory and clone the repository:
 ```
 mkdir projects
@@ -112,10 +92,10 @@ cd ..
 cd ..
 ```
 
-### 6. Run Copier
+## 6. Run Copier
 Execute the copier command and answer the Jinja file questions:
 
-### Questions to Answer:
+## Questions to Answer:
 1. Odoo version: 17.0
 2. Traefik: v2.4
 3. Language: en-US
@@ -139,7 +119,7 @@ Execute the copier command and answer the Jinja file questions:
 21. SMTP host: mail.example.com
 22. S3 duplicities: (empty)
 
-### 7. Create Docker Group
+## 7. Create Docker Group
 Create a Docker group and add your user:
 ```
 sudo groupadd docker
@@ -159,14 +139,14 @@ Verify Docker functionality:
 docker run hello-world
 ```
 
-### 8. Open Workspace in VSCode
+## 8. Open Workspace in VSCode
 Open the workspace file in VSCode and wait for the Python interpreters to be discovered:
 ```
 invoke start
 ```
 
-### 9. Common Errors and Solutions
-## Odoo Error
+## 9. Common Errors and Solutions
+### Odoo Error
 If you encounter the following error:
 ```
 Traceback (most recent call last):
@@ -177,7 +157,7 @@ Run:
 invoke git-aggregate
 ```
 
-## Database Initialization Error
+### Database Initialization Error
 If you see this error regarding the database:
 ```
 relation "ir_module_module" does not exist at character 53
@@ -188,16 +168,16 @@ Initialize the database:
 docker compose run --rm odoo odoo -i base --stop-after-init
 ```
 
-## Accessing Odoo
+### Accessing Odoo
 You can now access Odoo at http://localhost:17069 using admin as both the username and password.
 
-# accessing via WSL
-## check for distro options:
+## accessing via WSL
+### check for distro options:
 ```
 wsl --list --online
 ```
 
-## download ubuntu24.04
+### download ubuntu24.04
 ```
 wsl --install -d ubuntu-24.04
 ```
