@@ -150,7 +150,14 @@ invoke start
 If you encounter the following error:
 ```
 Traceback (most recent call last):
-...
+  File "/opt/odoo/common/entrypoint", line 75, in <module>
+    os.execvp(extra_command[0], extra_command)
+  File "/usr/local/lib/python3.10/os.py", line 575, in execvp
+    _execvpe(file, args)
+  File "/usr/local/lib/python3.10/os.py", line 617, in _execvpe
+    raise last_exc
+  File "/usr/local/lib/python3.10/os.py", line 608, in _execvpe
+    exec_func(fullname, *argrest)
 ```
 Run:
 ```
