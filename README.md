@@ -97,7 +97,7 @@ Execute the copier command and answer the Jinja file questions:
 ```
 copier copy gh:Tecnativa/doodba-copier-template projects/bs-odoo-test --trust
 ```
-## the trust flag is a necessary part
+## The trust flag is a necessary part
 
 ### Questions to Answer:
 1. Odoo version: 17.0
@@ -182,13 +182,13 @@ docker compose run --rm odoo odoo -i base --stop-after-init
 ### Accessing Odoo
 You can now access Odoo at http://localhost:17069 using admin as both the username and password.
 
-## accessing via WSL
-### check for distro options:
+## Accessing via WSL
+### Check for distro options:
 ```
 wsl --list --online
 ```
 
-### download ubuntu24.04
+### Download ubuntu24.04
 ```
 wsl --install -d ubuntu-24.04
 ```
