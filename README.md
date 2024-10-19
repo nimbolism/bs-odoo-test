@@ -191,13 +191,13 @@ docker compose run --rm odoo odoo -i base --stop-after-init
 ## Accessing Odoo
 You can now access Odoo at http://localhost:17069 using admin as both the username and password.
 
-### accessing via WSL
-# check for distro options:
+# accessing via WSL
+## check for distro options:
 ```
 wsl --list --online
 ```
 
-# download ubuntu24.04
+## download ubuntu24.04
 ```
 wsl --install -d ubuntu-24.04
 ```
