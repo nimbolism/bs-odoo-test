@@ -116,28 +116,28 @@ cd ..
 Execute the copier command and answer the Jinja file questions:
 
 ### Questions to Answer:
-1. Odoo version: ## 17.0
-2. Traefik: ## v2.4
-3. Language: ## en-US
-4. Password: ## admin
-5. Database listing: ## Don't list publicly
-6. Image registry: ## (empty)
-7. Author: ## Doodba-testers
-8. Project name: ## doodba-test-odoo
-9. License: ## Boost Software License
-10. GitLab: ## (empty)
-11. YAML file: ## (empty)
-12. Web crawlers: ## (default)
-13. Whitelisting: ## (empty)
-14. PostgreSQL: ## 15
-15. PostgreSQL username: ## odoo
-16. PostgreSQL database: ## prod
-17. PostgreSQL password: ## odoo
-18. Exposing database: ## (NO)
-19. Database filter: ## (^prod)
-20. Outgoing mail: ## doodba-test@example.com
-21. SMTP host: ## mail.example.com
-22. S3 duplicities: ## (empty)
+1. Odoo version: 17.0
+2. Traefik: v2.4
+3. Language: en-US
+4. Password: admin
+5. Database listing: Don't list publicly
+6. Image registry: (empty)
+7. Author: Doodba-testers
+8. Project name: doodba-test-odoo
+9. License: Boost Software License
+10. GitLab: (empty)
+11. YAML file: (empty)
+12. Web crawlers: (default)
+13. Whitelisting: (empty)
+14. PostgreSQL: 15
+15. PostgreSQL username: odoo
+16. PostgreSQL database: prod
+17. PostgreSQL password: odoo
+18. Exposing database: (NO)
+19. Database filter: (^prod)
+20. Outgoing mail: doodba-test@example.com
+21. SMTP host: mail.example.com
+22. S3 duplicities: (empty)
 
 ### 7. Create Docker Group
 Create a Docker group and add your user:
@@ -190,3 +190,18 @@ docker compose run --rm odoo odoo -i base --stop-after-init
 
 ## Accessing Odoo
 You can now access Odoo at http://localhost:17069 using admin as both the username and password.
+
+### accessing via WSL
+# check for distro options:
+```
+wsl --list --online
+```
+
+# download ubuntu24.04
+```
+wsl --install -d ubuntu-24.04
+```
+
+now you should open vscode and download extensions needed for wsl,
+then you will connect to ubuntu distro you downloaded and after opening
+a terminal, you can start to run commands above
