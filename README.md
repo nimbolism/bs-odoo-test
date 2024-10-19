@@ -95,7 +95,7 @@ cd ..
 ## 6. Run Copier
 Execute the copier command and answer the Jinja file questions:
 
-## Questions to Answer:
+### Questions to Answer:
 1. Odoo version: 17.0
 2. Traefik: v2.4
 3. Language: en-US
