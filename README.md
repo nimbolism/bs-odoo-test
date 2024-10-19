@@ -23,21 +23,27 @@ This project is maintained by: Doodba-testers
 ## 1. Install Python and Pip
 First, update the package list and install Python 3 and pip:
 
-```bash
+```
+bash
 sudo apt update
 sudo apt install python3
-sudo apt install python3-pip```
+sudo apt install python3-pip
+```
 
 
 ## 2. Initialize a Virtual Environment
 # 2.1 Install venv
 Install the venv module:
-```sudo apt install python3.12-venv```
+```
+sudo apt install python3.12-venv
+```
 
 ## 2.2 Create and Activate the Virtual Environment
 Create a virtual environment named .odoo and activate it:
-```python3 -m venv .odoo
-source .odoo/bin/activate```
+```
+python3 -m venv .odoo
+source .odoo/bin/activate
+```
 
 ## 2.3 Install Pipx and Other Tools
 With the virtual environment activated, install ```pipx```:
