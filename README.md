@@ -18,164 +18,137 @@ This project is maintained by: Doodba-testers
 
 
 
-Installing Python and Invoke on Ubuntu 24.04
-This guide will help you set up Python, Docker, and the necessary tools for your project on an Ubuntu 24.04 system.
+# Installing Python and Invoke on Ubuntu 24.04
 
-Step 1: Install Python and pip
-First, update your package list and install Python 3 along with pip:
+## 1. Install Python and Pip
+First, update the package list and install Python 3 and pip:
 
-bash
-Copy code
+```bash
 sudo apt update
-sudo apt install python3 python3-pip
-Step 2: Initialize a Virtual Environment
-1. Install venv
-To create a virtual environment, install the venv module:
+sudo apt install python3
+sudo apt install python3-pip```
 
-bash
-Copy code
-sudo apt install python3.12-venv
-2. Create and Activate the Virtual Environment
+
+## 2. Initialize a Virtual Environment
+# 2.1 Install venv
+Install the venv module:
+```sudo apt install python3.12-venv```
+
+## 2.2 Create and Activate the Virtual Environment
 Create a virtual environment named .odoo and activate it:
+```python3 -m venv .odoo
+source .odoo/bin/activate```
 
-bash
-Copy code
-python3 -m venv .odoo
-source .odoo/bin/activate
-3. Install pipx
-With the virtual environment activated, install pipx:
+## 2.3 Install Pipx and Other Tools
+With the virtual environment activated, install ```pipx```:
+```python3 -m pip install pipx```
 
-bash
-Copy code
-python3 -m pip install pipx
-4. Install Tools Using pipx
+## 2.4 Install Tools Using Pipx
 Install the necessary tools:
-
-bash
-Copy code
-pipx install copier
+```pipx install copier
 pipx install invoke
 pipx install pre-commit
-pipx ensurepath
-Step 3: Install Docker Engine
-1. Add Docker's Official GPG Key
-bash
-Copy code
-sudo apt-get update
+pipx ensurepath```
+
+# 3. Install Docker Engine
+## 3.1 Add Docker's Official GPG Key
+Run the following commands to prepare for Docker installation:
+```sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-2. Add the Docker Repository
-Add the Docker repository to your APT sources:
+sudo chmod a+r /etc/apt/keyrings/docker.asc```
 
-bash
-Copy code
-echo \
+## 3.2 Add the Docker Repository
+Add the Docker repository to Apt sources:
+```echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-3. Install Docker
-Update your package list and install Docker:
+sudo apt-get update```
 
-bash
-Copy code
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-4. Verify Docker Installation
-Check if Docker is installed correctly:
+## 3.3 Install Docker Engine
+Now, install the Docker packages:
+```sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin```
 
-bash
-Copy code
-sudo docker run hello-world
-Step 4: Check Git Installation
-Ensure Git is installed (it should be by default):
+## 3.4 Verify Docker Installation
+To check if Docker is installed correctly, run:
+```sudo docker run hello-world```
 
-bash
-Copy code
-git -v
-Step 5: Set Up Project Directories
-Create the project directories and clone the Doodba copier template:
+## 4. Check Git Installation
+Verify that Git is installed:
+```git -v```
 
-bash
-Copy code
-mkdir -p ~/projects/bs-odoo-test
-cd ~/projects/bs-odoo-test
+## 5. Create Directories and Clone Doodba Copier Template
+Create a project directory and clone the repository:
+```mkdir projects
+cd projects
+mkdir bs-odoo-test
+cd bs-odoo-test
+
 git clone https://github.com/Tecnativa/doodba-copier-template.git .
-Step 6: Run Copier
-Run the copier to set up your project:
+cd ..
+cd ..```
 
-bash
-Copy code
-copier copy gh:Tecnativa/doodba-copier-template projects/bs-odoo-test --trust
-Answer the Prompts
-When prompted, answer as follows:
+## 6. Run Copier
+Execute the copier command and answer the Jinja file questions:
 
-Odoo version: 17.0
-Traefik: v2.4
-Language: en-US
-Password: admin
-Do not list database publicly: Yes
-Image registry: (empty)
-Author: Doodba-testers
-Project name: doodba-test-odoo
-License: Boost Software License
-GitLab: (empty)
-YAML file: (empty)
-Web crawlers paths: (default)
-Whitelist CDRs: (empty)
-PostgreSQL version: 15
-PostgreSQL username: odoo
-PostgreSQL database: prod
-PostgreSQL password: odoo
-Expose database: NO
-Database filter: ^prod
-Outgoing mail: doodba-test@example.com
-SMTP host: mail.example.com
-Amazon S3 duplicities: (empty)
-Step 7: Create Docker Group
+# Questions to Answer:
+Odoo version: ## 17.0
+Traefik: ## v2.4
+Language: ## en-US
+Password: ## admin
+Database listing: ## Don't list publicly
+Image registry: ## (empty)
+Author: ## Doodba-testers
+Project name: ## doodba-test-odoo
+License: ## Boost Software License
+GitLab: ## (empty)
+YAML file: ## (empty)
+Web crawlers: ## (default)
+Whitelisting: ## (empty)
+PostgreSQL: ## 15
+PostgreSQL username: ## odoo
+PostgreSQL database: ## prod
+PostgreSQL password: ## odoo
+Exposing database: ## (NO)
+Database filter: ## (^prod)
+Outgoing mail: ## doodba-test@example.com
+SMTP host: ## mail.example.com
+S3 duplicities: ## (empty)
+
+## 7. Create Docker Group
 Create a Docker group and add your user:
+```sudo groupadd docker
+sudo usermod -aG docker <username>```
 
-bash
-Copy code
-sudo groupadd docker
-sudo usermod -aG docker <your-username>
-Update Permissions
+## Set Permissions
 Set the appropriate permissions:
+```sudo chown root:docker /var/run/docker.sock
+sudo chown -R root:docker /var/run/docker```
 
-bash
-Copy code
-sudo chown root:docker /var/run/docker.sock
-sudo chown -R root:docker /var/run/docker
-Test Docker Again
-Verify Docker is working:
+## Test Docker Again
+Verify Docker functionality:
+```docker run hello-world```
 
-bash
-Copy code
-docker run hello-world
-Step 8: Open Workspace in VS Code
-Open your project in Visual Studio Code:
+## 8. Open Workspace in VSCode
+Open the workspace file in VSCode and wait for the Python interpreters to be discovered:
+```invoke start```
 
-bash
-Copy code
-invoke start
-Troubleshooting Odoo Errors
-If you encounter errors like:
+# 9. Common Errors and Solutions
+## Odoo Error
+If you encounter the following error:
+```Traceback (most recent call last):
+...```
+Run:
+```invoke git-aggregate```
 
-sql
-Copy code
-Traceback (most recent call last):
-  ...
-You may need to run:
+## Database Initialization Error
+If you see this error regarding the database:
+```relation "ir_module_module" does not exist at character 53```
 
-bash
-Copy code
-invoke git-aggregate
-If you get database initialization errors, run:
+Initialize the database:
+```docker compose run --rm odoo odoo -i base --stop-after-init```
 
-bash
-Copy code
-docker compose run --rm odoo odoo -i base --stop-after-init
-Finally, access your Odoo instance at http://localhost:17069 and log in with admin as the username and password.
-
-
+## Accessing Odoo
+You can now access Odoo at http://localhost:17069 using admin as both the username and password.
