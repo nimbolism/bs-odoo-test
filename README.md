@@ -94,6 +94,10 @@ cd ..
 
 ## 6. Run Copier
 Execute the copier command and answer the Jinja file questions:
+```
+copier copy gh:Tecnativa/doodba-copier-template projects/bs-odoo-test --trust
+```
+## the trust flag is a necessary part
 
 ### Questions to Answer:
 1. Odoo version: 17.0
@@ -134,7 +138,7 @@ sudo chown -R root:docker /var/run/docker
 ```
 
 ## Test Docker Again
-Verify Docker functionality:
+Verify Docker functionality for the user:
 ```
 docker run hello-world
 ```
