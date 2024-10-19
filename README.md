@@ -18,132 +18,164 @@ This project is maintained by: Doodba-testers
 
 
 
-#installing python and invoke on the Ubuntu-24.04 system
+Installing Python and Invoke on Ubuntu 24.04
+This guide will help you set up Python, Docker, and the necessary tools for your project on an Ubuntu 24.04 system.
+
+Step 1: Install Python and pip
+First, update your package list and install Python 3 along with pip:
+
+bash
+Copy code
 sudo apt update
-sudo apt install python3
-sudo apt install python3-pip
+sudo apt install python3 python3-pip
+Step 2: Initialize a Virtual Environment
+1. Install venv
+To create a virtual environment, install the venv module:
 
-#initializing virtual environment (using venv) for python
-#1. install venv for ubuntu
+bash
+Copy code
 sudo apt install python3.12-venv
+2. Create and Activate the Virtual Environment
+Create a virtual environment named .odoo and activate it:
 
-#2. create the virtual env named .odoo and activate it
+bash
+Copy code
 python3 -m venv .odoo
 source .odoo/bin/activate
+3. Install pipx
+With the virtual environment activated, install pipx:
 
-#3. since virtual env is activated we can now start installing pipx and other tools!
+bash
+Copy code
 python3 -m pip install pipx
+4. Install Tools Using pipx
+Install the necessary tools:
 
-#4. install tools using pipx
+bash
+Copy code
 pipx install copier
 pipx install invoke
 pipx install pre-commit
 pipx ensurepath
-
-#5. install docker engine
-# Add Docker's official GPG key:
+Step 3: Install Docker Engine
+1. Add Docker's Official GPG Key
+bash
+Copy code
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
+2. Add the Docker Repository
+Add the Docker repository to your APT sources:
 
-# Add the repository to Apt sources:
+bash
+Copy code
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+3. Install Docker
+Update your package list and install Docker:
+
+bash
+Copy code
 sudo apt-get update
-
-#6. getting the engine
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+4. Verify Docker Installation
+Check if Docker is installed correctly:
 
-#7. to check if docker is installed run:
+bash
+Copy code
 sudo docker run hello-world
+Step 4: Check Git Installation
+Ensure Git is installed (it should be by default):
 
-#8. check if git is installed (it should be installed already)
+bash
+Copy code
 git -v
+Step 5: Set Up Project Directories
+Create the project directories and clone the Doodba copier template:
 
-#create directories and clone doodba copier template
-mkdir projects
-cd projects
-mkdir bs-odoo-test
-cd bs-odoo-test
-
-#clone the project
+bash
+Copy code
+mkdir -p ~/projects/bs-odoo-test
+cd ~/projects/bs-odoo-test
 git clone https://github.com/Tecnativa/doodba-copier-template.git .
-cd ..
-cd ..
+Step 6: Run Copier
+Run the copier to set up your project:
 
-#running copier
+bash
+Copy code
 copier copy gh:Tecnativa/doodba-copier-template projects/bs-odoo-test --trust
+Answer the Prompts
+When prompted, answer as follows:
 
-#answering the jinja file questions
-1. odoo version 17.0 
-2. Traefik v2.4
-3. en-US
-4. password: admin
-5. DONT list database publicly
-6. (empty) we dont have image registry 
-7. author -> Doodba-testers
-8. project name -> doodba-test-odoo
-9. boost software license
-10. (empty) we dont have GitLab right now!
-11. (empty) we dont have the yaml file needed
-12. (default) we dont have paths to prevent web crawlers
-13. (empty) whitelisting cdrs
-14. PostgreSQL 15
-15. postgres username -> odoo
-16. postgres database -> prod
-17. postgres password -> odoo
-18. (NO) not exposing database
-19. (^prod) database filter
-20. outgoing mail -> doodba-test@example.com
-21. SMTP host -> mail.example.com
-22. (empty) no amazon s3 duplicities
+Odoo version: 17.0
+Traefik: v2.4
+Language: en-US
+Password: admin
+Do not list database publicly: Yes
+Image registry: (empty)
+Author: Doodba-testers
+Project name: doodba-test-odoo
+License: Boost Software License
+GitLab: (empty)
+YAML file: (empty)
+Web crawlers paths: (default)
+Whitelist CDRs: (empty)
+PostgreSQL version: 15
+PostgreSQL username: odoo
+PostgreSQL database: prod
+PostgreSQL password: odoo
+Expose database: NO
+Database filter: ^prod
+Outgoing mail: doodba-test@example.com
+SMTP host: mail.example.com
+Amazon S3 duplicities: (empty)
+Step 7: Create Docker Group
+Create a Docker group and add your user:
 
-#creating a docker group
+bash
+Copy code
 sudo groupadd docker
+sudo usermod -aG docker <your-username>
+Update Permissions
+Set the appropriate permissions:
 
-#adding user to it
-sudo usermod -aG docker <username>
-
-#giving the user permissions:
+bash
+Copy code
 sudo chown root:docker /var/run/docker.sock
 sudo chown -R root:docker /var/run/docker
+Test Docker Again
+Verify Docker is working:
 
-#testing if docker works:
+bash
+Copy code
 docker run hello-world
+Step 8: Open Workspace in VS Code
+Open your project in Visual Studio Code:
 
-#open up workspace file in vscode
-#wait for python interpreters to be discovered
+bash
+Copy code
 invoke start
+Troubleshooting Odoo Errors
+If you encounter errors like:
 
+sql
+Copy code
+Traceback (most recent call last):
+  ...
+You may need to run:
 
-#odoo giving this error:
-#Traceback (most recent call last):
-#  File "/opt/odoo/common/entrypoint", line 75, in <module>
-#    os.execvp(extra_command[0], extra_command)
-#  File "/usr/local/lib/python3.10/os.py", line 575, in execvp
-#    _execvpe(file, args)
-#  File "/usr/local/lib/python3.10/os.py", line 617, in _execvpe
-#    raise last_exc
-#  File "/usr/local/lib/python3.10/os.py", line 608, in _execvpe
-#    exec_func(fullname, *argrest)
-
-# the possible solve might be:
+bash
+Copy code
 invoke git-aggregate
+If you get database initialization errors, run:
 
-#after that you will get this error from database
-#you have to initialize the database
-#2024-10-17 12:40:33.844 GMT [37] ERROR:  relation "ir_module_module" does not exist at character 53
-#2024-10-17 12:40:33.844 GMT [37] STATEMENT:  
-#                    SELECT latest_version
-#                    FROM ir_module_module
-#                     WHERE name='base'
-
-# to initiate database run:
+bash
+Copy code
 docker compose run --rm odoo odoo -i base --stop-after-init
+Finally, access your Odoo instance at http://localhost:17069 and log in with admin as the username and password.
 
-#now you can go to port 17069 and login using admin as username and password.
 
