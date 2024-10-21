@@ -18,7 +18,7 @@ pylint = "^3.0.2"
 pytest = "^7.4.0"
 pytest-xdist = "^3.6.1"
 packaging = "^23.1"
-requests = "^2.31.0"
+requests = "^2.32.3"
 pre-commit = "^3.3.3"
 python-on-whales = "^0.73.0"
 
